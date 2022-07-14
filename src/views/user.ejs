@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <%= data%>
+    <form action="/user/details/update" method="POST">
+      <input
+        type="text"
+        id="fname"
+        name="fullName"
+        value="<%= data.fullName %>"
+      /><br />
+      <input
+        type="password"
+        id="password"
+        name="password"
+        value="<%= data.password %>"
+      /><br /><br />
+
+      <input
+        type="email"
+        id="email"
+        name="email"
+        value="<%= data.email%>"
+      /><br /><br />
+      <input type="text" hidden name="ID" value="<%= data.ID %>" /><br /><br />
+      <input type="submit" id="btn" value="Edit" /><br /><br />
+    </form>
+  </body>
+</html>
