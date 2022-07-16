@@ -1,6 +1,7 @@
 import pool from "../configs/connectDB";
 const appRoot = require("app-root-path");
 let localhost = window.location.origin;
+console.log(localhost);
 let Project = async (rep, res) => {
   let data;
   const [rows, fields] = await pool.execute(" SELECT * FROM `project`");
