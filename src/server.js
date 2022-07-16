@@ -6,7 +6,7 @@ import innitWebRouter from "./route/router";
 import innitApiRouter from "./route/api";
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
