@@ -52,7 +52,7 @@ let Profiles = async (rep, res) => {
 };
 let updateProfiles = async (rep, res) => {
   let { infor, txt, profile_id } = rep.body;
-  let avatar = `${localhost}/img/${rep.file.originalname}`;
+  let avatar = `/img/${rep.file.originalname}`;
   await pool.execute(
     `UPDATE profile SET avatar= ?, infor= ?, txt= ? WHERE ID= ?`,
     [avatar, infor, txt, profile_id]
