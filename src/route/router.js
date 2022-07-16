@@ -5,13 +5,6 @@ import multer from "multer";
 const appRoot = require("app-root-path");
 let router = express.Router();
 
-const imageFilter = function (rep, file, cb) {
-  if (!file.originalname.match(/\.(img|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
-    rep.fileValidationError = "Only image files";
-    return cb(new Error("Only image files"), false);
-  }
-  cb(null, true);
-};
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, appRoot + "/src/public/img");
@@ -23,20 +16,37 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 const innitWebRouter = (app) => {
-  router.get("/", homeController.getHomePage);
-  router.get("/user/details/:user", homeController.getUserDetailsPage);
-  router.post("/user/create", homeController.createUser);
-  router.post("/delete", homeController.deleteUser);
-  router.post("/user/details/update", homeController.updateUser);
-  router.get("/upload", homeController.getUploadfile);
-  app.post(
-    "/profile",
-    upload.single("avatar"),
-    homeController.handleUploadFiles
+  router.get("/", homeController.Project);
+  router.post(
+    "/project-create",
+    upload.single("img"),
+    homeController.createProject
   );
-  router.get("/about", (rep, res) => {
-    console.log("alo alo");
-  });
+  router.post("/project-delete", homeController.deleteProject);
+  router.get("/data", homeController.Data);
+  router.post(
+    "/data/data-create",
+    upload.single("img"),
+    homeController.createData
+  );
+  router.post("/data/data-delete", homeController.deleteData);
+  router.get("/profile", homeController.Profiles);
+  router.post(
+    "/profile/profile-update",
+    upload.single("avatar"),
+    homeController.updateProfiles
+  );
+  router.get("/contact", homeController.Contact);
+  router.post(
+    "/contact/contact-create",
+    upload.single("img"),
+    homeController.createContact
+  );
+  router.post("/contact/contact-delete", homeController.deleteContact);
+  router.get("/knowledge", homeController.Knowledge);
+  router.post("/knowledge/knowledge-create", homeController.createKnowledge);
+  router.post("/knowledge/knowledge-delete", homeController.deleteKnowledge);
+  router.get("/message", homeController.Message);
   return app.use("/", router);
 };
 export default innitWebRouter;

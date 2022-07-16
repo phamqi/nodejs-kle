@@ -1,41 +1,51 @@
 import pool from "../configs/connectDB";
 
-let getAllUser = async (rep, res) => {
-  const [rows, fields] = await pool.execute("SELECT * FROM user");
+let getProject = async (rep, res) => {
+  const [rows, fields] = await pool.execute("SELECT * FROM project");
+  return res.status(200).json({
+    message: "ok",
+    data: rows,
+  });
+};
+let getData = async (rep, res) => {
+  const [rows, fields] = await pool.execute("SELECT * FROM data");
+  return res.status(200).json({
+    message: "ok",
+    data: rows,
+  });
+};
+let getProfiles = async (rep, res) => {
+  const [rows, fields] = await pool.execute("SELECT * FROM profile");
+  return res.status(200).json({
+    message: "ok",
+    data: rows,
+  });
+};
+let getKnowledge = async (rep, res) => {
+  const [rows, fields] = await pool.execute("SELECT * FROM know");
+  return res.status(200).json({
+    message: "ok",
+    data: rows,
+  });
+};
+let getContact = async (rep, res) => {
+  const [rows, fields] = await pool.execute("SELECT * FROM contact");
   return res.status(200).json({
     message: "ok",
     data: rows,
   });
 };
 
-let createUser = async (rep, res) => {
-  let { fullName, password, email } = rep.body;
-  console.log(rep.body);
-  if (!fullName || !password || !email) {
-    return res.status(403).json({
-      message: "missing some fields",
+let postMessage = async (rep, res) => {
+  let { email, message, send_at } = rep.body;
+  if (!email || !message || !send_at) {
+    return res.status(404).json({
+      message: "full fields",
     });
   } else {
-    await pool.execute(
-      `INSERT INTO user(fullName,password, email, OTP, setting) VALUES (?,?,?,?,?)`,
-      [fullName, password, email, "12345", "none"]
-    );
-    return res.status(200).json({
-      message: "ok",
-    });
-  }
-};
-let updateUser = async (rep, res) => {
-  let { fullName, password, email, ID } = rep.body;
-  console.log(rep.body);
-  if (!fullName || !password || !email || !ID) {
-    return res.status(403).json({
-      message: "missing some fields",
-    });
-  } else {
-    await pool.execute(
-      `UPDATE user SET fullName= ?, password= ?, email= ? WHERE ID= ?`,
-      [fullName, password, email, ID]
+    const [rows, fields] = await pool.execute(
+      "INSERT INTO message(email, message, send_at) VALUES (?,?,?)",
+      [email, message, send_at]
     );
     return res.status(200).json({
       message: "ok",
@@ -43,21 +53,11 @@ let updateUser = async (rep, res) => {
   }
 };
 
-let deleteUser = async (rep, res) => {
-  let userID = rep.params.id;
-  if (!userID) {
-    return res.status(403).json({
-      message: "ID not found",
-    });
-  }
-  await pool.execute(`DELETE FROM user where ID= ?`, [userID]);
-  return res.status(200).json({
-    message: "ok",
-  });
-};
 module.exports = {
-  getAllUser,
-  createUser,
-  updateUser,
-  deleteUser,
+  getProject,
+  getData,
+  getContact,
+  getProfiles,
+  getKnowledge,
+  postMessage,
 };

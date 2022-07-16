@@ -1,9 +1,11 @@
 import mysql from "mysql2/promise";
+require("dotenv").config();
 
+const host = process.env.LOCALHOST;
 const pool = mysql.createPool({
-  host: "localhost",
+  host: `${host}`,
   user: "root",
-  database: "nodejs_ecommerce",
+  database: "my_portfolio",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,

@@ -17,5 +17,5 @@ innitWebRouter(app);
 innitApiRouter(app);
 
 app.listen(port, () => {
-  console.log("alo alo");
+  console.log("App successfully");
 });

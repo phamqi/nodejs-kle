@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nodejs</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  </head>
+  <body>
+    <h1>From mixi with love</h1>
+    <a href="/">Project</a>
+    <a href="/contact">Contact</a>
+    <a href="/message">Message</a>
+    <a href="/data">Data</a>
+    <a href="/profile">Profile</a>
+    <a href="/knowledge">Knowledge</a>
+    <h2>Contact</h2>
+    <table class="w3-table-all">
+        <thead>
+          <tr class="w3-light-grey">
+            <th>ID</th>
+            <th>IMG</th>
+            <th>TXT</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% for(let i = 0; i < data.length; i++){%>
+          <tr>
+            <td><%=data[i].ID %></td>
+            <td><%=data[i].img %></td>
+            <td><%=data[i].link %></td>
+            <td><form action="contact/contact-delete" method="POST"><input hidden type="text" name="contact_id" value="<%= data[i].ID%>"></input> <input type="submit" value="Delete"></input> </form></td>
+          </tr>
+          <%}%>
+        </tbody>
+      </table>
+    <h2>Create contact</h2>
+    <form action="contact/contact-create" method="post" enctype="multipart/form-data">
+      <input type="file" name="img" />
+      <input type="text" name="link" />
+      <input type="submit" value="Submit" />
+    </form>
+    <div class="footer"></div>
+  </body>
+</html>
