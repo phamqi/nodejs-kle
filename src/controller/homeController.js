@@ -1,6 +1,6 @@
 import pool from "../configs/connectDB";
 const appRoot = require("app-root-path");
-
+let localhost = window.location.origin;
 let Project = async (rep, res) => {
   let data;
   const [rows, fields] = await pool.execute(" SELECT * FROM `project`");
@@ -11,7 +11,7 @@ let Project = async (rep, res) => {
 };
 let createProject = async (rep, res) => {
   let { name, description, language, gitlink, codelink } = rep.body;
-  let link = `${appRoot}/src/public/img/${rep.file.originalname}`;
+  let link = `${localhost}/img/${rep.file.originalname}`;
   await pool.execute(
     `INSERT INTO project(name,description, img, language, gitlink, codelink) VALUES (?,?,?,?,?, ?)`,
     [name, description, link, language, gitlink, codelink]
@@ -38,7 +38,7 @@ let deleteData = async (rep, res) => {
 };
 let createData = async (rep, res) => {
   let txt = rep.body.txt;
-  let link = `${appRoot}/src/public/img/${rep.file.originalname}`;
+  let link = `${localhost}/img/${rep.file.originalname}`;
   await pool.execute(`INSERT INTO data(img, txt) VALUES (?,?)`, [link, txt]);
   return res.redirect(`/data`);
 };
@@ -52,7 +52,7 @@ let Profiles = async (rep, res) => {
 };
 let updateProfiles = async (rep, res) => {
   let { infor, txt, profile_id } = rep.body;
-  let avatar = `${appRoot}/src/public/img/${rep.file.originalname}`;
+  let avatar = `${localhost}/img/${rep.file.originalname}`;
   await pool.execute(
     `UPDATE profile SET avatar= ?, infor= ?, txt= ? WHERE ID= ?`,
     [avatar, infor, txt, profile_id]
@@ -74,7 +74,7 @@ let deleteContact = async (rep, res) => {
 };
 let createContact = async (rep, res) => {
   let link = rep.body.link;
-  let img = `${appRoot}/src/public/img/${rep.file.originalname}`;
+  let img = `${localhost}/img/${rep.file.originalname}`;
   await pool.execute(`INSERT INTO contact(img, link) VALUES (?,?)`, [
     img,
     link,

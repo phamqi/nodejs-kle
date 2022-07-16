@@ -1,35 +1,39 @@
 import pool from "../configs/connectDB";
 
 let getProject = async (rep, res) => {
-  const [rows, fields] = await pool.execute("SELECT * FROM project");
+  const [rows, fields] = await pool.execute(
+    "SELECT name, description, img, language, gitlink, codelink FROM project"
+  );
   return res.status(200).json({
     message: "ok",
     data: rows,
   });
 };
 let getData = async (rep, res) => {
-  const [rows, fields] = await pool.execute("SELECT * FROM data");
+  const [rows, fields] = await pool.execute("SELECT img, txt FROM data");
   return res.status(200).json({
     message: "ok",
     data: rows,
   });
 };
 let getProfiles = async (rep, res) => {
-  const [rows, fields] = await pool.execute("SELECT * FROM profile");
+  const [rows, fields] = await pool.execute(
+    "SELECT avatar , infor , txt FROM profile"
+  );
   return res.status(200).json({
     message: "ok",
     data: rows,
   });
 };
 let getKnowledge = async (rep, res) => {
-  const [rows, fields] = await pool.execute("SELECT * FROM know");
+  const [rows, fields] = await pool.execute("SELECT txt FROM know");
   return res.status(200).json({
     message: "ok",
     data: rows,
   });
 };
 let getContact = async (rep, res) => {
-  const [rows, fields] = await pool.execute("SELECT * FROM contact");
+  const [rows, fields] = await pool.execute("SELECT img , link FROM contact");
   return res.status(200).json({
     message: "ok",
     data: rows,

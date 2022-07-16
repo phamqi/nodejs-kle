@@ -4,7 +4,7 @@ import apiController from "../controller/apiController";
 let router = express.Router();
 
 const innitApiRouter = (app) => {
-  router.get("/get-product", apiController.getProject);
+  router.get("/get-project", apiController.getProject);
   router.get("/get-data", apiController.getData);
   router.get("/get-profiles", apiController.getProfiles);
   router.get("/get-contact", apiController.getContact);
